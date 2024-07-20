@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package greet;
+
+option go_package = "github.com/annp1987/sms-app/proto;greet";
+
+message SMSAnalysisRequest {
+  int64 number   = 1;
+  string message = 2;
+}
+
+message PrefixMatch {
+  int64 prefix        = 1;
+  string operator     = 2;
+  int64 country_code  = 3;
+  string country_name = 4;
+}
+
+message SMSAnalysisResponse {
+  PrefixMatch prefix = 1;
+  string message     = 2;
+}
+
+service GreetService {
+  rpc Greet(SMSAnalysisRequest) returns (SMSAnalysisResponse) {}
+}
