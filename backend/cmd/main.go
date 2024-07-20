@@ -3,6 +3,7 @@ package main
 import (
 	connectcors "connectrpc.com/cors"
 	"context"
+	"fmt"
 	"github.com/annp1987/sms-app/config"
 	"github.com/annp1987/sms-app/logger"
 	"github.com/annp1987/sms-app/proto/greetconnect"
@@ -33,7 +34,7 @@ func RegisterWebServer(lifeCycle fx.Lifecycle, greeter *server.GreetServer, conf
 				path, handler := greetconnect.NewGreetServiceHandler(greeter)
 				mux.Handle(path, withCORS(handler))
 				http.ListenAndServe(
-					":8080",
+					fmt.Sprintf(":%s", conf.ServicePort),
 					// Use h2c so we can serve HTTP/2 without TLS.
 					h2c.NewHandler(mux, &http2.Server{}),
 				)
