@@ -50,8 +50,8 @@ func (s *GreetServer) Greet(ctx context.Context, req *connect.Request[greet.SMSA
 		if strings.Contains(phoneNumber, prefix) {
 			if len(prefix) > maxLength {
 				matchPrefix = value
+				maxLength = len(prefix)
 			}
-			maxLength = len(prefix)
 		}
 	}
 	res := connect.NewResponse(&greet.SMSAnalysisResponse{
